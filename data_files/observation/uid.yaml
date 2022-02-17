@@ -1,0 +1,3 @@
+data_type: guid
+description: Primary key for a patient's observation in NGIS.
+pk: yes

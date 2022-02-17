@@ -1,0 +1,2 @@
+data_type: int
+description: The percentage of malignant cells observed in the sample used for DNA extraction.

@@ -1,0 +1,3 @@
+data_type: enum
+description: Value of the sub-observation.
+codesystem: observation_value

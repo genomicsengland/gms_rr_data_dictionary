@@ -1,0 +1,3 @@
+data_type: id
+description: ID of patient associated with condition.
+fk: patient.patient_id

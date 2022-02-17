@@ -1,0 +1,3 @@
+data_type: id
+description: Primary key for plated sample in NGIS.
+pk: yes

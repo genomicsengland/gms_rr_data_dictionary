@@ -1,0 +1,3 @@
+data_type: guid
+description: Primary key for referral participant in NGIS.
+pk: yes

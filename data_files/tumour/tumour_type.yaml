@@ -1,0 +1,3 @@
+data_type: enum
+description: Code for the type of a tumour.
+codesystem: tumour_type

@@ -1,0 +1,3 @@
+data_type: enum
+description: Urgency of a referral.
+codesystem: priority

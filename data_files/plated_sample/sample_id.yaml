@@ -1,0 +1,3 @@
+data_type: id
+description: The ID for the sample which has been plated.
+fk: sample.sample_id

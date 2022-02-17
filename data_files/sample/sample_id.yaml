@@ -1,0 +1,3 @@
+data_type: id
+description: Primary key for sample in NGIS.
+pk: yes

@@ -1,0 +1,3 @@
+data_type: id
+description: Referral ID of referral.
+fk: referral.referral_id

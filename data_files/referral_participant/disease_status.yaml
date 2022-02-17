@@ -1,0 +1,3 @@
+data_type: enum
+description: Status of proband's condition in the family member.
+codesystem: disease_status

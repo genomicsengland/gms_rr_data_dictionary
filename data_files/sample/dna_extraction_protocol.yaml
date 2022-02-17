@@ -1,0 +1,2 @@
+data_type: enum
+description: The protocol used for DNA extraction.

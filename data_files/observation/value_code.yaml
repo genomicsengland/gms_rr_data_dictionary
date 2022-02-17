@@ -1,0 +1,3 @@
+data_type: enum
+description: Code for the value of an observation.
+codesystem: observation_value

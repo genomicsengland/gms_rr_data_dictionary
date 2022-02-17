@@ -1,0 +1,3 @@
+data_type: enum
+description: Status of referral.
+codesystem: referral_status

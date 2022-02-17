@@ -1,0 +1,3 @@
+data_type: guid
+description: UID of tumour for which morphology was recorded.
+fk: tumour.uid

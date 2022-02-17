@@ -1,0 +1,3 @@
+data_type: enum
+description: Degree of confidence that a patient has this condition.
+codesystem: diagnosis_certainty

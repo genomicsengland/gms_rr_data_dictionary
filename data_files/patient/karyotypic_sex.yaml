@@ -1,0 +1,3 @@
+data_type: enum
+description: Patient's karyotypic sex.
+codesystem: karyotypic_sex

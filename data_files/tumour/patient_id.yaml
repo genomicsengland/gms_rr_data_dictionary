@@ -1,0 +1,3 @@
+data_type: id
+description: ID of patient in which tumour was found.
+fk: patient.patient_id

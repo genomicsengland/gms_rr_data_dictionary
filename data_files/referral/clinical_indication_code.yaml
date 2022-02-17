@@ -1,0 +1,2 @@
+data_type: enum
+description: Code of the clinical indication being tested.

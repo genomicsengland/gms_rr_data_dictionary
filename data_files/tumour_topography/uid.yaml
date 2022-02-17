@@ -1,0 +1,3 @@
+data_type: guid
+description: Primary key for tumour topography in NGIS.
+pk: yes

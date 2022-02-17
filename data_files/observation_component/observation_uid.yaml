@@ -1,0 +1,3 @@
+data_type: guid
+description: Observation uid that the observation component is associated with.
+fk: observation.uid

@@ -1,0 +1,3 @@
+data_type: enum
+description: Patient's life status.
+codesystem: life_status

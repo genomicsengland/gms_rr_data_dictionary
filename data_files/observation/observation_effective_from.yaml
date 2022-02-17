@@ -1,0 +1,2 @@
+data_type: date
+description: Date when an observation is first valid, such as the first date of a procedure.

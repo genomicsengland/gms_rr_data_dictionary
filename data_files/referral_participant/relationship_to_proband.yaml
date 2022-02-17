@@ -1,0 +1,3 @@
+data_type: enum
+description: Relationship between family member and proband.
+codesystem: relationship_type

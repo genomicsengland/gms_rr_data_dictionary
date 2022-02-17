@@ -1,0 +1,2 @@
+data_type: str
+description: Full name of clinical indication being tested for.

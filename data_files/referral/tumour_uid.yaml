@@ -1,0 +1,3 @@
+data_type: guid
+description: UID for tumour associated with referral.
+fk: tumour.uid

@@ -1,0 +1,2 @@
+data_type: enum
+description: The QC status of the sample when assessed at the GLH.

@@ -1,0 +1,2 @@
+data_type: bool
+description: Indication of whether the participant is the patient.

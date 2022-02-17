@@ -1,0 +1,3 @@
+data_type: id
+description: Patient ID of referral participant
+fk: patient.patient_id

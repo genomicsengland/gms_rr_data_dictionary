@@ -1,0 +1,3 @@
+data_type: enum
+description: Patient's phenotypic sex.
+codesystem: phenotypic_sex

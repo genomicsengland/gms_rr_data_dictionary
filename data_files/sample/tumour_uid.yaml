@@ -1,0 +1,3 @@
+data_type: guid
+description: UID of tumour from which sample was taken.
+fk: tumour.uid
