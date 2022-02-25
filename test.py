@@ -49,8 +49,8 @@ def process_column(d, header_level):
     """
 
     out = [
-        f"{'#'*header_level} {d['name']}",
-        f"Data type: **{d['contents']['data_type']}**",
+        f"h{header_level}. {d['name']}",
+        f"Data type: *{d['contents']['data_type']}*",
         f"{d['contents']['description']}",
     ]
 
@@ -58,7 +58,7 @@ def process_column(d, header_level):
         out.append(fetch_concepts(d['contents']['codesystem']))
 
     if 'fk' in d['contents'].keys():
-        out.append(f"References {d['contents']['fk']}.")
+        out.append(f"References +{d['contents']['fk']}+.")
 
     return "\n\n".join(out)
 
@@ -68,8 +68,8 @@ def process_table(d, header_level):
     """
 
     out = [
-        f"{'#'*header_level} {d['name']}",
-        f"__{d['contents']['caption']}__",
+        f"h{header_level}. {d['name']}",
+        f"_{d['contents']['caption']}_",
         f"{d['contents']['description']}"
     ]
 
@@ -81,15 +81,17 @@ def process(d):
 
     md.append(d['contents']['description'])
 
+    starting_header_level = 2
+
     for x in d['children']:
 
         if x['type'] == 'folder':
 
-            md.append(process_table(x, 1))
+            md.append(process_table(x, starting_header_level))
 
             for y in x['children']:
 
-                md.append(process_column(y, 2))
+                md.append(process_column(y, starting_header_level + 1))
 
     return md
 
@@ -105,7 +107,7 @@ def fetch_concepts(codesystem):
     con = pg.connect(f"host={os.getenv('GR_DB_HOST')} dbname={os.getenv('GR_DB_NAME')} user={os.getenv('GR_DB_USER')} password={os.getenv('GR_DB_PWD')}")
     df = pandas.read_sql(sql, con)
 
-    return df.to_markdown(index=False)
+    return df.to_markdown(index=False, tablefmt='jira')
 
 if __name__ == "__main__":
 
@@ -117,6 +119,7 @@ if __name__ == "__main__":
 
     contents = path_to_dict(pathlib.Path(args.input))
     out = '\n\n'.join(process(contents))
-    html = markdown.markdown(out, extensions = ['tables', 'fenced_code', 'toc'])
+    outp.write_text(out)
+    # html = markdown.markdown(out, extensions = ['tables', 'fenced_code', 'toc'])
 
-    outp.write_text(html)
+    # outp.write_text(html)
