@@ -5,7 +5,7 @@ python create_cnfl_dd_text.py <location of data files> <filepath to output to>
 import os
 import argparse
 import pathlib
-import markdown
+# import markdown
 import yaml
 import pandas
 import psycopg2 as pg
