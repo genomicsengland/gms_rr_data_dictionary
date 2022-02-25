@@ -1,7 +1,8 @@
 #!/bin/bash
 # script to refresh the data dictionary files and add in any new tables/columns
 # ! doesn't check for things that have been removed
-cd data_files
+mkdir -p $1
+cd $1 || { echo 'unable to cd into target directory' ; exit 1; }
 
 create_new_column () {
     # create a new template column yaml file in table's folder
