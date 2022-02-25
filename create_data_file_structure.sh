@@ -1,6 +1,7 @@
 #!/bin/bash
 # script to refresh the data dictionary files and add in any new tables/columns
 # ! doesn't check for things that have been removed
+# requires single argument of directory to output structure to
 mkdir -p $1
 cd $1 || { echo 'unable to cd into target directory' ; exit 1; }
 

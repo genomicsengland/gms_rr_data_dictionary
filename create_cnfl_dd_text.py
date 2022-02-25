@@ -1,3 +1,7 @@
+"""
+script to process directory of YAML files and produce formatted text
+python create_cnfl_dd_text.py <location of data files> <filepath to output to>
+"""
 import os
 import argparse
 import pathlib
@@ -8,6 +12,7 @@ import psycopg2 as pg
 from dotenv import load_dotenv
 
 load_dotenv()
+
 
 def path_to_dict(path):
     """
@@ -43,9 +48,13 @@ def path_to_dict(path):
 
     return tree
 
+
 def process_column(d, header_level):
     """
     formats text for column files
+    :param d: dictionary of column data
+    :param header_level: header level to use in markdown
+    :returns: string of markdown
     """
 
     out = [
@@ -62,9 +71,13 @@ def process_column(d, header_level):
 
     return "\n\n".join(out)
 
+
 def process_table(d, header_level):
     """
     formats text for a table file
+    :param d: dictionary of table data
+    :param header_level: header level to use in markdown
+    :returns: string of markdown
     """
 
     out = [
@@ -75,10 +88,15 @@ def process_table(d, header_level):
 
     return "\n\n".join(out)
 
+
 def process(d):
+    """
+    process a dictionary of table and column data
+    :params d: input dictionary of table and column data
+    :returns: list of markdown sections
+    """
 
     md = []
-
     md.append(d['contents']['description'])
 
     starting_header_level = 2
@@ -95,12 +113,13 @@ def process(d):
 
     return md
 
-    return flat_list
 
 def fetch_concepts(codesystem):
     """
     fetches concept codes and descriptions from config database and outputs
     a table for inclusion
+    :params codesystem: the concept codesystem of interest
+    :returns: table of enumerations and descriptions as markdown string
     """
 
     sql = f"select concept_code as enumeration, concept_display as description from concept where codesystem_uri = '{codesystem}';"
@@ -109,17 +128,22 @@ def fetch_concepts(codesystem):
 
     return df.to_markdown(index=False, tablefmt='jira')
 
+
 if __name__ == "__main__":
 
+    # gather arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("input", help = "location of data files to be used")
     parser.add_argument("output", help = "location to output file to")
     args = parser.parse_args()
     outp = pathlib.Path(args.output)
 
+    # extract information from input directory
     contents = path_to_dict(pathlib.Path(args.input))
-    out = '\n\n'.join(process(contents))
-    outp.write_text(out)
-    # html = markdown.markdown(out, extensions = ['tables', 'fenced_code', 'toc'])
 
-    # outp.write_text(html)
+    # process the dictionary and join the resulting list of strings
+    out = '\n\n'.join(process(contents))
+
+    # write out the markdown text to file
+    outp.write_text(out)
+
