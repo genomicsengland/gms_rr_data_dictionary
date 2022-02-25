@@ -1,0 +1,157 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+' declare all the entities
+
+entity "condition" {
+    uid : guid
+    --
+    certainty : enum
+    code : enum
+    code_description : str
+    patient_id : id <<FK>>
+}
+
+entity "observation" {
+    uid : guid
+    --
+    code : enum
+    code_description : str
+    observation_effective_from : date
+    patient_id : id <<FK>>
+    value_code : enum
+}
+
+entity "observation_component" {
+    uid : guid
+    --
+    observation_component_code : enum
+    observation_component_code_description : str
+    observation_component_value : enum
+    observation_uid : guid <<FK>>
+}
+
+entity "patient" {
+    uid : guid
+    --
+    administrative_gender : enum
+    ethnicity : enum
+    ethnicity_description : str
+    karyotypic_sex : enum
+    life_status : enum
+    patient_id : id
+    patient_is_foetal_patient : bool
+    patient_year_of_birth : int
+    patient_year_of_death : int
+    phenotypic_sex : enum
+}
+
+entity "plated_sample" {
+    platekey : id
+    --
+    dna_amount : float
+    illumina_qc_status : enum
+    illumina_sample_concentration : float
+    sample_id : id <<FK>>
+}
+
+entity "referral" {
+    uid : guid
+    --
+    clinical_indication_code : enum
+    clinical_indication_full_name : str
+    ordering_entity_code : enum
+    ordering_entity_name : str
+    priority : enum
+    referral_id : id
+    status : enum
+    tumour_uid : guid <<FK>>
+}
+
+entity "referral_participant" {
+    uid : guid
+    --
+    disease_status : enum
+    patient_id : id <<FK>>
+    referral_id : id <<FK>>
+    referral_participant_age_at_onset : int
+    referral_participant_is_proband : bool
+    relationship_to_proband : enum
+}
+
+entity "referral_test" {
+    uid : guid
+    --
+    referral_id : id
+    referral_test_expected_number_of_patients : int
+}
+
+entity "sample" {
+    sample_id : id
+    --
+    collection_date : date
+    concentration_ng_ul_glh : float
+    din_value_glh : int
+    dna_extraction_protocol : enum
+    od_260_280_glh : float
+    patient_id : id
+    percentage_dna_glh : float
+    percentage_of_malignant_cells : int
+    qc_status_glh : enum
+    referral_id : id
+    sample_morphology : enum
+    sample_topography : enum
+    state : enum
+    tumour_uid : guid <<FK>>
+    type : enum
+}
+
+entity "tumour" {
+    uid : guid
+    --
+    patient_id : id <<FK>>
+    presentation : enum
+    tumour_diagnosis_day : int
+    tumour_diagnosis_month : int
+    tumour_diagnosis_year : int
+    tumour_type : enum
+}
+
+entity "tumour_morphology" {
+    uid : guid
+    --
+    morphology : enum
+    tumour_uid : guid <<FK>>
+}
+
+entity "tumour_topography" {
+    uid : guid
+    --
+    actual_body_site : enum
+    actual_body_site_description : str
+    primary_body_site : enum
+    primary_body_site_description : str
+    tumour_uid : guid <<FK>>
+}
+
+' declare the relationships
+
+patient ||--o{ condition
+patient ||--o{ observation
+observation ||--o{ observation_component
+tumour ||--o{ tumour_morphology
+tumour ||--o{ tumour_topography
+referral ||--|{ referral_participant
+sample ||--o{ plated_sample
+referral ||--o{ tumour
+referral ||--|{ referral_test
+referral ||--o{ sample
+patient ||--o{ sample
+patient ||--|{ referral_participant
+
+@enduml
