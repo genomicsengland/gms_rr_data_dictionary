@@ -87,7 +87,7 @@ entity "referral_participant" {
 entity "referral_test" {
     uid : guid
     --
-    referral_id : id
+    referral_id : id <<FK>>
     referral_test_expected_number_of_patients : int
 }
 
@@ -96,14 +96,14 @@ entity "sample" {
     --
     collection_date : date
     concentration_ng_ul_glh : float
-    din_value_glh : int
+    din_value_glh : float
     dna_extraction_protocol : enum
     od_260_280_glh : float
-    patient_id : id
+    patient_id : id <<FK>>
     percentage_dna_glh : float
     percentage_of_malignant_cells : int
     qc_status_glh : enum
-    referral_id : id
+    referral_id : id <<FK>>
     sample_morphology : enum
     sample_topography : enum
     state : enum
@@ -143,15 +143,17 @@ entity "tumour_topography" {
 
 patient ||--o{ condition
 patient ||--o{ observation
+patient ||--o{ sample
+patient ||--|{ referral_participant
+patient ||--o{ tumour
 observation ||--o{ observation_component
 tumour ||--o{ tumour_morphology
 tumour ||--o{ tumour_topography
-referral ||--|{ referral_participant
+tumour |o--o{ sample
 sample ||--o{ plated_sample
 referral ||--o{ tumour
+referral ||--|{ referral_participant
 referral ||--|{ referral_test
 referral ||--o{ sample
-patient ||--o{ sample
-patient ||--|{ referral_participant
 
 @enduml

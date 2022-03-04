@@ -1,2 +1,2 @@
-data_type: int
-description: deprecate
+data_type: float
+description: DNA Integrity Number value as reported by GLH.
