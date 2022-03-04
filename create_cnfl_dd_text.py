@@ -2,13 +2,15 @@
 script to process directory of YAML files and produce formatted text
 python create_cnfl_dd_text.py <location of data files> <filepath to output to>
 """
-import os
 import argparse
+import os
 import pathlib
-# import markdown
-import yaml
+
 import pandas
 import psycopg2 as pg
+
+# import markdown
+import yaml
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,28 +25,30 @@ def path_to_dict(path):
 
     # the description of the folder is pulled from an index.yaml file in there
     tree = {
-        "name": path.stem,
-        "path": path,
-        "type":"folder",
-        "contents": yaml.safe_load(path.joinpath("index.yaml").read_text()),
-        "children":[]
+        'name': path.stem,
+        'path': path,
+        'type': 'folder',
+        'contents': yaml.safe_load(path.joinpath('index.yaml').read_text()),
+        'children': [],
     }
 
-    tree["children"].extend(
+    tree['children'].extend(
         [path_to_dict(x) for x in sorted(path.iterdir()) if x.is_dir()]
     )
 
     # any other yaml files in the directory contain information on columns
-    tree["children"].extend([
-        {
-        "name": f.stem,
-        "path": f,
-        "type": "file",
-        "contents": yaml.safe_load(f.read_text())
-        }
-        for f in sorted(path.iterdir()) if f.is_file() and
-        f.suffix == '.yaml' and f.name != 'index.yaml'
-    ])
+    tree['children'].extend(
+        [
+            {
+                'name': f.stem,
+                'path': f,
+                'type': 'file',
+                'contents': yaml.safe_load(f.read_text()),
+            }
+            for f in sorted(path.iterdir())
+            if f.is_file() and f.suffix == '.yaml' and f.name != 'index.yaml'
+        ]
+    )
 
     return tree
 
@@ -69,7 +73,7 @@ def process_column(d, header_level):
     if 'fk' in d['contents'].keys():
         out.append(f"References +{d['contents']['fk']}+.")
 
-    return "\n\n".join(out)
+    return '\n\n'.join(out)
 
 
 def process_table(d, header_level):
@@ -83,10 +87,10 @@ def process_table(d, header_level):
     out = [
         f"h{header_level}. {d['name']}",
         f"_{d['contents']['caption']}_",
-        f"{d['contents']['description']}"
+        f"{d['contents']['description']}",
     ]
 
-    return "\n\n".join(out)
+    return '\n\n'.join(out)
 
 
 def process(d):
@@ -122,19 +126,25 @@ def fetch_concepts(codesystem):
     :returns: table of enumerations and descriptions as markdown string
     """
 
-    sql = f"select concept_code as enumeration, concept_display as description from concept where codesystem_uri = '{codesystem}';"
-    con = pg.connect(f"host={os.getenv('GR_DB_HOST')} dbname={os.getenv('GR_DB_NAME')} user={os.getenv('GR_DB_USER')} password={os.getenv('GR_DB_PWD')}")
+    sql = (
+        f'select concept_code as enumeration, concept_display as description '
+        f"from concept where codesystem_uri = '{codesystem}';"
+    )
+    con = pg.connect(
+        f"host={os.getenv('GR_DB_HOST')} dbname={os.getenv('GR_DB_NAME')} "
+        f"user={os.getenv('GR_DB_USER')} password={os.getenv('GR_DB_PWD')}"
+    )
     df = pandas.read_sql(sql, con)
 
     return df.to_markdown(index=False, tablefmt='jira')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     # gather arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", help = "location of data files to be used")
-    parser.add_argument("output", help = "location to output file to")
+    parser.add_argument('input', help='location of data files to be used')
+    parser.add_argument('output', help='location to output file to')
     args = parser.parse_args()
     outp = pathlib.Path(args.output)
 
@@ -146,4 +156,3 @@ if __name__ == "__main__":
 
     # write out the markdown text to file
     outp.write_text(out)
-

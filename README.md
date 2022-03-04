@@ -34,4 +34,3 @@ GR_DB_USER=<GMS genomic_record DB user>
 GR_DB_PWD=<GMS genomic_record DB password>
 GR_DB_NAME=<GMS genomic_record DB name>
 ```
-

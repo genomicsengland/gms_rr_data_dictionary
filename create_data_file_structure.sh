@@ -17,7 +17,7 @@ refresh_table () {
     template_table_index="caption: tbc\ndescription: tbc"
     # if folder doesn't exist then create it with index.yaml
     if [ ! -d $1 ]
-    then 
+    then
         mkdir -p $1
         echo -e $template_table_index > $1/index.yaml
         echo "$1 table created"
@@ -56,4 +56,3 @@ while read tbl
 do
     refresh_table $tbl
 done
-
