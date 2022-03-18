@@ -20,7 +20,7 @@ As part of the process relevant enumerations are fetched from the GMS `genomic_r
 
 ```sh
 bash create_data_file_structure.sh ~/scr/dd
-diff <(tree data_files) <(~/scr/dd)
+vim -d <(tree data_files) <(tree ~/scr/dd)
 ```
 
 `er_diag.plantuml` is an ER diagram for the dataset using PlantUML syntax. The diagram can be generated using [their online server](https://www.plantuml.com/plantuml/uml).

@@ -34,6 +34,7 @@ entity "observation_component" {
     observation_component_code_description : str
     observation_component_value : enum
     observation_uid : guid <<FK>>
+    patient_id : id <<FK>>
 }
 
 entity "patient" {
@@ -57,6 +58,7 @@ entity "plated_sample" {
     dna_amount : float
     illumina_qc_status : enum
     illumina_sample_concentration : float
+    patient_id : id <<FK>>
     sample_id : id <<FK>>
 }
 
@@ -126,6 +128,8 @@ entity "tumour_morphology" {
     uid : guid
     --
     morphology : enum
+    morphology_description: str
+    patient_id : id <<FK>>
     tumour_uid : guid <<FK>>
 }
 
@@ -134,6 +138,7 @@ entity "tumour_topography" {
     --
     actual_body_site : enum
     actual_body_site_description : str
+    patient_id : id <<FK>>
     primary_body_site : enum
     primary_body_site_description : str
     tumour_uid : guid <<FK>>
@@ -143,9 +148,13 @@ entity "tumour_topography" {
 
 patient ||--o{ condition
 patient ||--o{ observation
+patient ||--o{ observation_component
+patient ||--o{ plated_sample
 patient ||--o{ sample
 patient ||--|{ referral_participant
 patient ||--o{ tumour
+patient ||--o{ tumour_morphology
+patient ||--o{ tumour_topography
 observation ||--o{ observation_component
 tumour ||--o{ tumour_morphology
 tumour ||--o{ tumour_topography
