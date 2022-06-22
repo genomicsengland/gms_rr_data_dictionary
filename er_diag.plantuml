@@ -9,7 +9,6 @@ skinparam linetype ortho
 ' declare all the entities
 
 entity "condition" {
-    uid : guid
     --
     certainty : enum
     code : enum
@@ -28,7 +27,6 @@ entity "observation" {
 }
 
 entity "observation_component" {
-    uid : guid
     --
     observation_component_code : enum
     observation_component_code_description : str
@@ -38,14 +36,13 @@ entity "observation_component" {
 }
 
 entity "participant" {
-    uid : guid
+    participant_id : id
     --
     administrative_gender : enum
     ethnicity : enum
     ethnicity_description : str
     karyotypic_sex : enum
     life_status : enum
-    participant_id : id
     participant_is_foetal_participant : bool
     participant_year_of_birth : int
     participant_year_of_death : int
@@ -63,31 +60,28 @@ entity "plated_sample" {
 }
 
 entity "referral" {
-    uid : guid
+    referral_id : id
     --
     clinical_indication_code : enum
     clinical_indication_full_name : str
     ordering_entity_code : enum
     ordering_entity_name : str
     priority : enum
-    referral_id : id
     status : enum
     tumour_uid : guid <<FK>>
 }
 
 entity "referral_participant" {
-    uid : guid
-    --
-    disease_status : enum
     participant_id : id <<FK>>
     referral_id : id <<FK>>
+    --
+    disease_status : enum
     referral_participant_age_at_onset : int
     referral_participant_is_proband : bool
     relationship_to_proband : enum
 }
 
 entity "referral_test" {
-    uid : guid
     --
     referral_id : id <<FK>>
     referral_test_expected_number_of_participant : int
@@ -125,7 +119,6 @@ entity "tumour" {
 }
 
 entity "tumour_morphology" {
-    uid : guid
     --
     morphology : enum
     morphology_description: str
@@ -134,7 +127,6 @@ entity "tumour_morphology" {
 }
 
 entity "tumour_topography" {
-    uid : guid
     --
     actual_body_site : enum
     actual_body_site_description : str
