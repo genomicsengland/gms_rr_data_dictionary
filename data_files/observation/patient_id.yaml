@@ -1,3 +1,0 @@
-data_type: id
-description: ID of patient observation was made upon.
-fk: patient.patient_id

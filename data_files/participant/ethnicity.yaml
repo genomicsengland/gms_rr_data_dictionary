@@ -1,0 +1,3 @@
+data_type: enum
+description: Participant's clinical ethnicity
+codesystem: ethnicity

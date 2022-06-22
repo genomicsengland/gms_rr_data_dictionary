@@ -1,0 +1,3 @@
+data_type: id
+description: ID of participant observation was made upon.
+fk: participant.participant_id

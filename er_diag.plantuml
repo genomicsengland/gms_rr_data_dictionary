@@ -14,7 +14,7 @@ entity "condition" {
     certainty : enum
     code : enum
     code_description : str
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
 }
 
 entity "observation" {
@@ -23,7 +23,7 @@ entity "observation" {
     code : enum
     code_description : str
     observation_effective_from : date
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     value_code : enum
 }
 
@@ -34,10 +34,10 @@ entity "observation_component" {
     observation_component_code_description : str
     observation_component_value : enum
     observation_uid : guid <<FK>>
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
 }
 
-entity "patient" {
+entity "participant" {
     uid : guid
     --
     administrative_gender : enum
@@ -45,10 +45,10 @@ entity "patient" {
     ethnicity_description : str
     karyotypic_sex : enum
     life_status : enum
-    patient_id : id
-    patient_is_foetal_patient : bool
-    patient_year_of_birth : int
-    patient_year_of_death : int
+    participant_id : id
+    participant_is_foetal_participant : bool
+    participant_year_of_birth : int
+    participant_year_of_death : int
     phenotypic_sex : enum
 }
 
@@ -58,7 +58,7 @@ entity "plated_sample" {
     dna_amount : float
     illumina_qc_status : enum
     illumina_sample_concentration : float
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     sample_id : id <<FK>>
 }
 
@@ -79,7 +79,7 @@ entity "referral_participant" {
     uid : guid
     --
     disease_status : enum
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     referral_id : id <<FK>>
     referral_participant_age_at_onset : int
     referral_participant_is_proband : bool
@@ -90,7 +90,7 @@ entity "referral_test" {
     uid : guid
     --
     referral_id : id <<FK>>
-    referral_test_expected_number_of_patients : int
+    referral_test_expected_number_of_participant : int
 }
 
 entity "sample" {
@@ -101,7 +101,7 @@ entity "sample" {
     din_value_glh : float
     dna_extraction_protocol : enum
     od_260_280_glh : float
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     percentage_dna_glh : float
     percentage_of_malignant_cells : int
     qc_status_glh : enum
@@ -116,7 +116,7 @@ entity "sample" {
 entity "tumour" {
     uid : guid
     --
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     presentation : enum
     tumour_diagnosis_day : int
     tumour_diagnosis_month : int
@@ -129,7 +129,7 @@ entity "tumour_morphology" {
     --
     morphology : enum
     morphology_description: str
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     tumour_uid : guid <<FK>>
 }
 
@@ -138,7 +138,7 @@ entity "tumour_topography" {
     --
     actual_body_site : enum
     actual_body_site_description : str
-    patient_id : id <<FK>>
+    participant_id : id <<FK>>
     primary_body_site : enum
     primary_body_site_description : str
     tumour_uid : guid <<FK>>
@@ -146,15 +146,15 @@ entity "tumour_topography" {
 
 ' declare the relationships
 
-patient ||--o{ condition
-patient ||--o{ observation
-patient ||--o{ observation_component
-patient ||--o{ plated_sample
-patient ||--o{ sample
-patient ||--|{ referral_participant
-patient ||--o{ tumour
-patient ||--o{ tumour_morphology
-patient ||--o{ tumour_topography
+participant ||--o{ condition
+participant ||--o{ observation
+participant ||--o{ observation_component
+participant ||--o{ plated_sample
+participant ||--o{ sample
+participant ||--|{ referral_participant
+participant ||--o{ tumour
+participant ||--o{ tumour_morphology
+participant ||--o{ tumour_topography
 observation ||--o{ observation_component
 tumour ||--o{ tumour_morphology
 tumour ||--o{ tumour_topography

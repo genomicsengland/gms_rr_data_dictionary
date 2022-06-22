@@ -1,3 +1,0 @@
-data_type: enum
-description: Patient's gender identification used for administrative but not clinical purposes.
-codesystem: administrative_gender

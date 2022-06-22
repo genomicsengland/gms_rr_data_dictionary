@@ -51,7 +51,7 @@ deprecate_column () {
     echo "$1 column deprecated"
 }
 
-psql -h localhost -p 5432 -U simon -Atc "select distinct regexp_replace(table_name, '^vw_', '') from information_schema.columns where table_catalog = 'gms_research_release' and table_name not in ('vw_patient_list', 'vw_eligible_referral', 'vw_eligible_patient') and table_name like 'vw_%'" gms_research_release |\
+psql -h localhost -p 5432 -U simon -Atc "select distinct regexp_replace(table_name, '^vw_', '') from information_schema.columns where table_catalog = 'gms_research_release' and table_name not in ('vw_participant_list', 'vw_participant_cohort', 'vw_referral_list', 'vw_referral_cohort', 'vw_encryption_seed') and table_name like 'vw_%'" gms_research_release |\
 while read tbl
 do
     refresh_table $tbl

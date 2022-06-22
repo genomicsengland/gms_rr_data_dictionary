@@ -1,0 +1,3 @@
+data_type: id
+description: ID of participant in which tumour was found.
+fk: participant.participant_id

@@ -1,0 +1,2 @@
+data_type: int
+description: Year of death, if participant is deceased.

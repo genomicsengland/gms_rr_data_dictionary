@@ -1,0 +1,3 @@
+data_type: id
+description: Participant ID of referral participant
+fk: participant.participant_id
