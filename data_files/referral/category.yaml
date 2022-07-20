@@ -1,0 +1,5 @@
+data_type: enum
+description: |
+  The category of referral.
+
+  || enumeration || description || | rare_diseases | Rare Diseases | | cancer | Cancer |
